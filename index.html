@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora Real</title>
+    <style>
+        body {
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial;
+        }
+
+        .calc {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            width: 260px;
+        }
+
+        #display {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 10px;
+            background: #000;
+            color: #0f0;
+            font-size: 32px;
+            text-align: right;
+            padding: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #333;
+            color: white;
+        }
+
+        button.op { background: #f57c00; }
+        button.equal { background: #388e3c; }
+        button.clear { background: #d32f2f; }
+        button:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="calc">
+    <div id="display">0</div>
+
+    <div class="btn-grid">
+        <button class="clear" onclick="limpar()">C</button>
+        <button onclick="digitar('(')">(</button>
+        <button onclick="digitar(')')">)</button>
+        <button class="op" onclick="operar('/')">÷</button>
+
+        <button onclick="digitar('7')">7</button>
+        <button onclick="digitar('8')">8</button>
+        <button onclick="digitar('9')">9</button>
+        <button class="op" onclick="operar('*')">×</button>
+
+        <button onclick="digitar('4')">4</button>
+        <button onclick="digitar('5')">5</button>
+        <button onclick="digitar('6')">6</button>
+        <button class="op" onclick="operar('-')">−</button>
+
+        <button onclick="digitar('1')">1</button>
+        <button onclick="digitar('2')">2</button>
+        <button onclick="digitar('3')">3</button>
+        <button class="op" onclick="operar('+')">+</button>
+
+        <button onclick="digitar('0')">0</button>
+        <button onclick="digitar('.')">.</button>
+        <button class="equal" style="grid-column: span 2;" onclick="calcular()">=</button>
+    </div>
+</div>
+
+<script>
+    let display = document.getElementById("display");
+    let expressao = "";
+    
+    function digitar(valor) {
+        expressao += valor;
+        display.innerText = expressao;
+    }
+
+    function operar(op) {
+        expressao += op;
+        display.innerText = expressao;
+    }
+
+    function limpar() {
+        expressao = "";
+        display.innerText = "0";
+    }
+
+    function calcular() {
+        try {
+            let resultado = eval(expressao);
+
+            console.log("Resultado normal:", resultado);
+
+            // Requisitos do exercício: operadores de atribuição
+            let r = 0;
+            r += resultado;
+            r *= 2;
+            r -= 3;
+            r /= 2;
+            console.log("Usando operadores de atribuição:", r);
+
+            display.innerText = resultado;
+            expressao = "" + resultado;
+
+        } catch (e) {
+            display.innerText = "Erro";
+            expressao = "";
+        }
+    }
+</script>
+
+</body>
+</html>
